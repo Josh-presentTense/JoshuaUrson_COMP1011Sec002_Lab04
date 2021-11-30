@@ -9,11 +9,11 @@ public class PlayerAndGame {
 
     /**
      * PlayerAndGame constructor with 5 parameters
-     * @param player_game_id
-     * @param game_id
-     * @param player_id
-     * @param playing_date
-     * @param score
+     * @param player_game_id : int
+     * @param game_id : int
+     * @param player_id : int
+     * @param playing_date : String
+     * @param score : String
      */
     public PlayerAndGame(int player_game_id, int game_id, int player_id, String playing_date, String score) {
         setPlayer_game_id(player_game_id);

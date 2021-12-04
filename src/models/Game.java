@@ -29,4 +29,9 @@ public class Game {
     public void setGame_title(String game_title) {
         this.game_title = game_title;
     }
+
+    @Override
+    public String toString() {
+        return String.format("|ID: %d| - %s", getGame_id(), getGame_title());
+    }
 }

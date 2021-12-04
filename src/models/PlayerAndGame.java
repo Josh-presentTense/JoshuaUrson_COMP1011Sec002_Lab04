@@ -62,4 +62,10 @@ public class PlayerAndGame {
     public void setScore(String score) {
         this.score = score;
     }
+
+    @Override
+    public String toString() {
+        return String.format("|Record ID: %d| - |Player ID: %d| - |Game ID: %d| - Date: %s - Score: %s",
+                getPlayer_game_id(), getPlayer_id(), getGame_id(), getPlaying_date(), getScore());
+    }
 }

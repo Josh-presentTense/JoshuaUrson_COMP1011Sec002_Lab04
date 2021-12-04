@@ -84,4 +84,10 @@ public class Player {
     public void setPhone_number(long phone_number) {
         this.phone_number = phone_number;
     }
+
+    @Override
+    public String toString() {
+        return String.format("|ID: %d| - %s %s - %s, %s, %s - %d",
+                getPlayer_id(), getFirst_name(), getLast_name(), getAddress(), getProvince(), getPostal_code(), getPhone_number());
+    }
 }

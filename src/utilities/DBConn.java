@@ -116,4 +116,41 @@ public class DBConn {
         }
         return listOfPlayersAndGames;
     }
+
+    /**
+     * This method pulls all the players_and_games data from the players_and_games table in the DB using
+     * the game or player id
+     * @param id_type : String
+     * @param id : int
+     * @return : ArrayList
+     * @throws SQLException
+     */
+    public static ArrayList<PlayerAndGame> getRecordsBySpecifiedIdFromDB(String id_type, int id) throws SQLException {
+        ArrayList<PlayerAndGame> recordsList = new ArrayList<>(); // Holds the PlayerAndGame objects from the players_and_games table of the DB
+        String queryString = String.format("SELECT * FROM players_and_games WHERE %s = %d", id_type, id); // Query that will be run on the DB
+
+        try (
+                Connection conn = DriverManager.getConnection(connString, user, password); // Connect to DB
+                Statement statement = conn.createStatement(); // Create a statement object
+                ResultSet resultSet = statement.executeQuery(queryString); // Create / execute the query
+        ) {
+            // Parse through the content of the players_and_games table
+            while (resultSet.next()) {
+                // Add content from the players_and_games table to create PlayerAndGame objects
+                PlayerAndGame pulledRecord = new PlayerAndGame(
+                        resultSet.getInt("player_game_id"),
+                        resultSet.getInt("game_id"),
+                        resultSet.getInt("player_id"),
+                        resultSet.getString("playing_date"),
+                        resultSet.getString("score")
+                );
+                recordsList.add(pulledRecord); // add the newly created PlayerAndGame object to the arraylist
+            }
+        } catch (SQLException e) {
+            System.out.println(String.format("Database access issue: %s", e.getMessage()));
+        } catch (Exception e) {
+            System.out.println(String.format("Exception caught: %s", e.getMessage()));
+        }
+        return recordsList;
+    }
 }

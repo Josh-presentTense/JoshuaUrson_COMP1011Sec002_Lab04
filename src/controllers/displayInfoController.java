@@ -12,6 +12,7 @@ import utilities.DBConn;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class displayInfoController implements Initializable {
@@ -34,14 +35,64 @@ public class displayInfoController implements Initializable {
     @FXML
     private TextArea msgTextArea;
 
+    ArrayList<Game> gamesList;
+    ArrayList<Player> playersList;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
-            gamesListView.getItems().addAll(DBConn.getGamesFromDB());
-            playersListView.getItems().addAll(DBConn.getPlayersFromDB());
+            // Store data from DB
+            gamesList = DBConn.getGamesFromDB();
+            playersList = DBConn.getPlayersFromDB();
+
+            // Populate the Games and Players listviews
+            gamesListView.getItems().addAll(gamesList);
+            playersListView.getItems().addAll(playersList);
+
+            // Populate the playerID and gameID combo box
+            for(Player p : playersList)
+                playerIdComboBox.getItems().add(p.getPlayer_id());
+            for(Game g : gamesList)
+                gameIdComboBox.getItems().add(g.getGame_id());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void searchByGameIdButton() throws SQLException {
+        recordsListView.getItems().clear();
+
+        if (gameIdComboBox.getSelectionModel().isEmpty())
+            msgTextArea.setText("A gameID must be selected to begin a search using gameID");
+        else {
+            ArrayList<PlayerAndGame> recordsByGameId = new ArrayList<>();
+
+            recordsByGameId = DBConn.getRecordsBySpecifiedIdFromDB("game_id", gameIdComboBox.getValue());
+
+            recordsListView.getItems().addAll(recordsByGameId);
+//            for(PlayerAndGame pg : recordsByGameId)
+//                recordsListView.getItems().add(pg.toStringGameRecord());
+        }
+    }
+
+    @FXML
+    private void searchByPlayerIdButton() throws SQLException {
+        recordsListView.getItems().clear();
+
+        if (playerIdComboBox.getSelectionModel().isEmpty())
+            msgTextArea.setText("A playerID must be selected to begin a search using playerID");
+        else {
+            ArrayList<PlayerAndGame> recordsByPlayerId = new ArrayList<>();
+
+            recordsByPlayerId = DBConn.getRecordsBySpecifiedIdFromDB("player_id", playerIdComboBox.getValue());
+
+            recordsListView.getItems().addAll(recordsByPlayerId);
+//            for(PlayerAndGame pg : recordsByPlayerId)
+//                recordsListView.getItems().add(pg.toStringPlayerRecord());
+        }
+    }
+
 }

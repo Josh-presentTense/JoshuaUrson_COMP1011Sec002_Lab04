@@ -63,6 +63,16 @@ public class PlayerAndGame {
         this.score = score;
     }
 
+    public String toStringGameRecord() {
+        return String.format("|Game ID: %d| - Score: %s, achieved on: %s - By: |Player ID: %d|",
+                getGame_id(), getScore(), getPlaying_date(), getPlayer_id());
+    }
+
+    public String toStringPlayerRecord() {
+        return String.format("|Player ID: %d| - Score: %s, from |Game ID: %d| - achieved on: %s",
+                getPlayer_id(), getScore(), getGame_id(), getPlaying_date());
+    }
+
     @Override
     public String toString() {
         return String.format("|Record ID: %d| - |Player ID: %d| - |Game ID: %d| - Date: %s - Score: %s",

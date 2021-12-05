@@ -83,17 +83,9 @@
                   </Button>
                </children>
             </HBox>
-            <HBox alignment="CENTER" spacing="50.0">
-               <children>
-                  <Button mnemonicParsing="false" text="Update">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
+            <HBox alignment="CENTER" spacing="50.0" />
          </children>
       </VBox>
-      <TextArea fx:id="msgTextArea" layoutX="21.0" layoutY="460.0" prefHeight="100.0" prefWidth="600.0" />
+      <TextArea fx:id="msgTextArea" editable="false" layoutX="21.0" layoutY="460.0" prefHeight="100.0" prefWidth="600.0" />
    </children>
 </AnchorPane>

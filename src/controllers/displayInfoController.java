@@ -27,7 +27,7 @@ public class displayInfoController implements Initializable {
     private ListView<Player> playersListView;
 
     @FXML
-    private ListView<PlayerAndGame> recordsListView;
+    private ListView<String> recordsListView;
 
     @FXML
     private ComboBox<Integer> playerIdComboBox;
@@ -71,13 +71,11 @@ public class displayInfoController implements Initializable {
         if (gameIdComboBox.getSelectionModel().isEmpty())
             msgTextArea.setText("A gameID must be selected to begin a search using gameID");
         else {
-            ArrayList<PlayerAndGame> recordsByGameId = new ArrayList<>();
+            ArrayList<String> recordsByGameId = new ArrayList<>();
 
             recordsByGameId = DBConn.getRecordsBySpecifiedIdFromDB("game_id", gameIdComboBox.getValue());
 
             recordsListView.getItems().addAll(recordsByGameId);
-//            for(PlayerAndGame pg : recordsByGameId)
-//                recordsListView.getItems().add(pg.toStringGameRecord());
         }
     }
 
@@ -88,13 +86,11 @@ public class displayInfoController implements Initializable {
         if (playerIdComboBox.getSelectionModel().isEmpty())
             msgTextArea.setText("A playerID must be selected to begin a search using playerID");
         else {
-            ArrayList<PlayerAndGame> recordsByPlayerId = new ArrayList<>();
+            ArrayList<String> recordsByPlayerId = new ArrayList<>();
 
             recordsByPlayerId = DBConn.getRecordsBySpecifiedIdFromDB("player_id", playerIdComboBox.getValue());
 
             recordsListView.getItems().addAll(recordsByPlayerId);
-//            for(PlayerAndGame pg : recordsByPlayerId)
-//                recordsListView.getItems().add(pg.toStringPlayerRecord());
         }
     }
 

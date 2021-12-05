@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -9,7 +10,9 @@ import models.Game;
 import models.Player;
 import models.PlayerAndGame;
 import utilities.DBConn;
+import utilities.SceneChanger;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -93,6 +96,11 @@ public class displayInfoController implements Initializable {
 //            for(PlayerAndGame pg : recordsByPlayerId)
 //                recordsListView.getItems().add(pg.toStringPlayerRecord());
         }
+    }
+
+    @FXML
+    private void newEntryButton(ActionEvent event) throws IOException {
+        SceneChanger.changeScenes(event, "../views/insertView.fxml", "Insert into Database");
     }
 
 }

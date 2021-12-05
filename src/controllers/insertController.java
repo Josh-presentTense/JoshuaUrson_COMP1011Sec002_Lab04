@@ -1,10 +1,18 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import models.Game;
+import models.Player;
+import utilities.DBConn;
+import utilities.SceneChanger;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,9 +66,12 @@ public class insertController implements Initializable {
     @FXML
     private TextArea msgTxtArea;
 
-    private static final Pattern PHONENUM_PATTERN = Pattern.compile("[0-9]{3}-[0-9]{3}-[0-9]{4}");
-    private static final Pattern POSTALCODE_PATTERN = Pattern.compile("[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]");
-    private static final Pattern DATE_PATTERN = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+    ArrayList<Game> gamesList;
+    ArrayList<Player> playersList;
+
+    private static final Pattern PHONENUM_PATTERN = Pattern.compile("^\\d{3}-\\d{3}-\\d{4}$");
+    private static final Pattern POSTALCODE_PATTERN = Pattern.compile("^[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]$");
+    private static final Pattern DATE_PATTERN = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -69,6 +80,21 @@ public class insertController implements Initializable {
         this.gameRadioBtn.setToggleGroup(this.selectionToggleGroup);
         this.playerRadioBtn.setToggleGroup(this.selectionToggleGroup);
         this.recordRadioBtn.setToggleGroup(this.selectionToggleGroup);
+
+        try {
+            // Store data from DB
+            gamesList = DBConn.getGamesFromDB();
+            playersList = DBConn.getPlayersFromDB();
+
+            // Populate the playerID and gameID combo box
+            for(Player p : playersList)
+                playerIdComboBox.getItems().add(p.getPlayer_id());
+            for(Game g : gamesList)
+                gameIdComboBox.getItems().add(g.getGame_id());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -122,5 +148,10 @@ public class insertController implements Initializable {
         } else {
 
         }
+    }
+
+    @FXML
+    public void backButton(ActionEvent event) throws IOException {
+        SceneChanger.changeScenes(event, "../views/displayInfoView.fxml", "Display of Players, Games, and Records");
     }
 }

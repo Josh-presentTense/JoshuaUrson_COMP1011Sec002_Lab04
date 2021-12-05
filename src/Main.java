@@ -14,7 +14,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("views/displayInfoView.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Display of Players and Games");
+        stage.setTitle("Display of Players, Games, and Records");
         stage.show();
     }
 }

@@ -46,7 +46,7 @@
             </VBox>
          </children>
       </HBox>
-      <Button layoutX="21.0" layoutY="352.0" mnemonicParsing="false" text="New Entry">
+      <Button layoutX="21.0" layoutY="352.0" mnemonicParsing="false" onAction="#newEntryButton" text="New Entry">
          <font>
             <Font size="14.0" />
          </font>

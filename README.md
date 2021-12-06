@@ -1,4 +1,4 @@
-# Joshua Urson's Lab 04 Project
+# Joshua Urson's Lab 04 Assignment
 
 **ProjectName:** JoshuaUrson_COMP1011Sec002_Lab04 <br />
 
